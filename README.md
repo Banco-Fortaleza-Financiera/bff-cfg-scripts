@@ -4,7 +4,29 @@ Este repositorio incluye scripts `.sh` para construir las imagenes Docker y leva
 
 ## Arquitectura
 
-![Arquitectura del ambiente](../arquitectura.png)
+![Arquitectura del ambiente](docs/arquitectura.png)
+
+## Capturas de la aplicacion
+
+### Login
+
+![Login](docs/00001.png)
+
+### Gestion de usuarios
+
+![Gestion de usuarios](docs/00002.png)
+
+### Gestion de cuentas
+
+![Gestion de cuentas](docs/00003.png)
+
+### Gestion de transacciones
+
+![Gestion de transacciones](docs/00004.png)
+
+### Reporte de estado de cuenta
+
+![Reporte de estado de cuenta](docs/00005.png)
 
 ## Prerrequisitos
 
