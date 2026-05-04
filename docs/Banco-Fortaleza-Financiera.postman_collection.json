@@ -1,0 +1,1399 @@
+{
+  "info": {
+    "_postman_id": "7c884309-c766-4de9-96e1-45c97374e691",
+    "name": "Banco-Fortaleza-Financiera",
+    "description": "Para iniciar a consumir las APIS se debe primero autenticar con el endpoint que se encuentra en la carpeta Autenticación (authenticationUser), en el cual este es el payload que se debe de enviar\n\n`{ \"idUser\": 10000, \"password\": \"Str0ngP@ssword\"}`\n\na su vez toda solicitud debe de llevar lo siguientes que que son obligatorios\n\n- x-device-ip (formato ip)\n    \n- x-session (formato uuidV4)\n    \n- Authorization (se obtiene el endpoint anteriormente mencionado)\n    \n\nTambien cada endpoint GET que empiece list tendra los siguentes headers:\n\n- x-page con valor 1\n    \n- x-page-size con valor 10\n    \n- En el apartado de params estaran desactivado los posibles filtros que puedan colocar\n    \n\nNOTA: IMPORTANTE LAS ACCIONES DE CREAR SE PODRAN REALIZAR SIEMPRE Y CUANDO EL USUARIO ESTE CON ESTADO ACTIVO (ACTIVE) Y LA CUENTA ESTADO ACTIVO (ACTIVE)\n\nGENERAR EN ENVIROMENT LAS SIGUIENTES CONFIGURACIONES\n\n| **VARIABLE** | **VALUE** |\n| --- | --- |\n| DOCKER AUTH | http://localhost:8080 |\n| DOCKER USERS | http://localhost:8081 |\n| DOCKER ACCOUNTS | http://localhost:8082 |\n| DOCKER TRANSACTIONS | http://localhost:8083 |",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "8799307"
+  },
+  "item": [
+    {
+      "name": "Autenticación",
+      "item": [
+        {
+          "name": "authenticateUser",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "x-device-ip",
+                "value": "127.0.0.1",
+                "type": "text"
+              },
+              {
+                "key": "x-session",
+                "value": "7f2c1a54-4cf0-4d8c-9b18-2a6a57e7f7f3",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"idUser\": 10000,\r\n  \"password\": \"Str0ngP@ssword\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{DOCKER AUTH}}/channel/v1/auth/login",
+              "host": [
+                "{{DOCKER AUTH}}"
+              ],
+              "path": [
+                "channel",
+                "v1",
+                "auth",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Users",
+      "item": [
+        {
+          "name": "users",
+          "item": [
+            {
+              "name": "listUsers",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMDAwMCIsImlhdCI6MTc3NzkyODk4NywiZXhwIjoxNzc4MDAwOTg3LCJzaWQiOiI3ZjJjMWE1NC00Y2YwLTRkOGMtOWIxOC0yYTZhNTdlN2Y3ZjMifQ.EBzeunks5eVhSbVRrHi2fwRAT0FBkTgcB77vEz7EQp8",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "x-device-ip",
+                    "value": "127.0.0.1",
+                    "type": "text"
+                  },
+                  {
+                    "key": "x-session",
+                    "value": "7f2c1a54-4cf0-4d8c-9b18-2a6a57e7f7f3",
+                    "type": "text"
+                  },
+                  {
+                    "key": "x-page",
+                    "value": "1",
+                    "type": "text"
+                  },
+                  {
+                    "key": "x-page-size",
+                    "value": "10",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{DOCKER USERS}}/channel/v1/users",
+                  "host": [
+                    "{{DOCKER USERS}}"
+                  ],
+                  "path": [
+                    "channel",
+                    "v1",
+                    "users"
+                  ],
+                  "query": [
+                    {
+                      "key": "status",
+                      "value": "ACTIVE",
+                      "disabled": true
+                    },
+                    {
+                      "key": "userType",
+                      "value": "ADMIN",
+                      "disabled": true
+                    },
+                    {
+                      "key": "search",
+                      "value": "SEARCH",
+                      "disabled": true
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "createUser",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMDAwMCIsImlhdCI6MTc3NzkyODk4NywiZXhwIjoxNzc4MDAwOTg3LCJzaWQiOiI3ZjJjMWE1NC00Y2YwLTRkOGMtOWIxOC0yYTZhNTdlN2Y3ZjMifQ.EBzeunks5eVhSbVRrHi2fwRAT0FBkTgcB77vEz7EQp8",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "x-device-ip",
+                    "value": "127.0.0.1",
+                    "type": "text"
+                  },
+                  {
+                    "key": "x-session",
+                    "value": "7f2c1a54-4cf0-4d8c-9b18-2a6a57e7f7f3",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"name\": \"Gerson\",\r\n  \"lastName\": \"Ramos\",\r\n  \"password\": \"Str0ngP@ssword\",\r\n  \"gender\": \"MALE\",\r\n  \"age\": 30,\r\n  \"identification\": \"1234567890101\",\r\n  \"status\": \"ACTIVE\",\r\n  \"userType\": \"NORMAL\",\r\n  \"addresses\": [\r\n    {\r\n      \"address\": \"10 Calle 1-23 Zona 10\",\r\n      \"typeAddress\": \"HOME\",\r\n      \"status\": \"ACTIVE\"\r\n    }\r\n  ],\r\n  \"phones\": [\r\n    {\r\n      \"phone\": \"+502 5555 1234\",\r\n      \"typePhone\": \"MOBILE\",\r\n      \"status\": \"ACTIVE\"\r\n    }\r\n  ]\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{DOCKER USERS}}/channel/v1/users",
+                  "host": [
+                    "{{DOCKER USERS}}"
+                  ],
+                  "path": [
+                    "channel",
+                    "v1",
+                    "users"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "getUserById",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMDAwMCIsImlhdCI6MTc3NzkyODk4NywiZXhwIjoxNzc4MDAwOTg3LCJzaWQiOiI3ZjJjMWE1NC00Y2YwLTRkOGMtOWIxOC0yYTZhNTdlN2Y3ZjMifQ.EBzeunks5eVhSbVRrHi2fwRAT0FBkTgcB77vEz7EQp8",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "x-device-ip",
+                    "value": "127.0.0.1",
+                    "type": "text"
+                  },
+                  {
+                    "key": "x-session",
+                    "value": "7f2c1a54-4cf0-4d8c-9b18-2a6a57e7f7f3",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{DOCKER USERS}}/channel/v1/users/10001",
+                  "host": [
+                    "{{DOCKER USERS}}"
+                  ],
+                  "path": [
+                    "channel",
+                    "v1",
+                    "users",
+                    "10001"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "updateUserStatus",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMDAwMCIsImlhdCI6MTc3NzkyODk4NywiZXhwIjoxNzc4MDAwOTg3LCJzaWQiOiI3ZjJjMWE1NC00Y2YwLTRkOGMtOWIxOC0yYTZhNTdlN2Y3ZjMifQ.EBzeunks5eVhSbVRrHi2fwRAT0FBkTgcB77vEz7EQp8",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "x-device-ip",
+                    "value": "127.0.0.1",
+                    "type": "text"
+                  },
+                  {
+                    "key": "x-session",
+                    "value": "7f2c1a54-4cf0-4d8c-9b18-2a6a57e7f7f3",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"status\": \"INACTIVE\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{DOCKER USERS}}/channel/v1/users/10001",
+                  "host": [
+                    "{{DOCKER USERS}}"
+                  ],
+                  "path": [
+                    "channel",
+                    "v1",
+                    "users",
+                    "10001"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "phone",
+          "item": [
+            {
+              "name": "listUserPhones",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMDAwMCIsImlhdCI6MTc3NzkyODk4NywiZXhwIjoxNzc4MDAwOTg3LCJzaWQiOiI3ZjJjMWE1NC00Y2YwLTRkOGMtOWIxOC0yYTZhNTdlN2Y3ZjMifQ.EBzeunks5eVhSbVRrHi2fwRAT0FBkTgcB77vEz7EQp8",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "x-device-ip",
+                    "value": "127.0.0.1",
+                    "type": "text"
+                  },
+                  {
+                    "key": "x-session",
+                    "value": "7f2c1a54-4cf0-4d8c-9b18-2a6a57e7f7f3",
+                    "type": "text"
+                  },
+                  {
+                    "key": "x-page",
+                    "value": "1",
+                    "type": "text"
+                  },
+                  {
+                    "key": "x-page-size",
+                    "value": "10",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{DOCKER USERS}}/channel/v1/users/10001/phones",
+                  "host": [
+                    "{{DOCKER USERS}}"
+                  ],
+                  "path": [
+                    "channel",
+                    "v1",
+                    "users",
+                    "10001",
+                    "phones"
+                  ],
+                  "query": [
+                    {
+                      "key": "status",
+                      "value": "INACTIVE",
+                      "disabled": true
+                    },
+                    {
+                      "key": "search",
+                      "value": "HOUSE",
+                      "disabled": true
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "createUserPhone",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMDAwMCIsImlhdCI6MTc3NzkyODk4NywiZXhwIjoxNzc4MDAwOTg3LCJzaWQiOiI3ZjJjMWE1NC00Y2YwLTRkOGMtOWIxOC0yYTZhNTdlN2Y3ZjMifQ.EBzeunks5eVhSbVRrHi2fwRAT0FBkTgcB77vEz7EQp8",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "x-device-ip",
+                    "value": "127.0.0.1",
+                    "type": "text"
+                  },
+                  {
+                    "key": "x-session",
+                    "value": "7f2c1a54-4cf0-4d8c-9b18-2a6a57e7f7f3",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"phone\": \"+502 1234 5678\",\r\n  \"typePhone\": \"HOUSE\"\r\n}\r\n",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{DOCKER USERS}}/channel/v1/users/10001/phones",
+                  "host": [
+                    "{{DOCKER USERS}}"
+                  ],
+                  "path": [
+                    "channel",
+                    "v1",
+                    "users",
+                    "10001",
+                    "phones"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "getUserPhoneById",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMDAwMCIsImlhdCI6MTc3NzkyODk4NywiZXhwIjoxNzc4MDAwOTg3LCJzaWQiOiI3ZjJjMWE1NC00Y2YwLTRkOGMtOWIxOC0yYTZhNTdlN2Y3ZjMifQ.EBzeunks5eVhSbVRrHi2fwRAT0FBkTgcB77vEz7EQp8",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "x-device-ip",
+                    "value": "127.0.0.1",
+                    "type": "text"
+                  },
+                  {
+                    "key": "x-session",
+                    "value": "7f2c1a54-4cf0-4d8c-9b18-2a6a57e7f7f3",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{DOCKER USERS}}/channel/v1/users/10001/phones/2",
+                  "host": [
+                    "{{DOCKER USERS}}"
+                  ],
+                  "path": [
+                    "channel",
+                    "v1",
+                    "users",
+                    "10001",
+                    "phones",
+                    "2"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "updateUserAddressStatus",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMDAwMCIsImlhdCI6MTc3NzkyODk4NywiZXhwIjoxNzc4MDAwOTg3LCJzaWQiOiI3ZjJjMWE1NC00Y2YwLTRkOGMtOWIxOC0yYTZhNTdlN2Y3ZjMifQ.EBzeunks5eVhSbVRrHi2fwRAT0FBkTgcB77vEz7EQp8",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "x-device-ip",
+                    "value": "127.0.0.1",
+                    "type": "text"
+                  },
+                  {
+                    "key": "x-session",
+                    "value": "7f2c1a54-4cf0-4d8c-9b18-2a6a57e7f7f3",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"status\": \"INACTIVE\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{DOCKER USERS}}/channel/v1/users/10001/phones/2",
+                  "host": [
+                    "{{DOCKER USERS}}"
+                  ],
+                  "path": [
+                    "channel",
+                    "v1",
+                    "users",
+                    "10001",
+                    "phones",
+                    "2"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "address",
+          "item": [
+            {
+              "name": "listUserAddresses",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMDAwMCIsImlhdCI6MTc3NzkyODk4NywiZXhwIjoxNzc4MDAwOTg3LCJzaWQiOiI3ZjJjMWE1NC00Y2YwLTRkOGMtOWIxOC0yYTZhNTdlN2Y3ZjMifQ.EBzeunks5eVhSbVRrHi2fwRAT0FBkTgcB77vEz7EQp8",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "x-device-ip",
+                    "value": "127.0.0.1",
+                    "type": "text"
+                  },
+                  {
+                    "key": "x-session",
+                    "value": "7f2c1a54-4cf0-4d8c-9b18-2a6a57e7f7f3",
+                    "type": "text"
+                  },
+                  {
+                    "key": "x-page",
+                    "value": "1",
+                    "type": "text"
+                  },
+                  {
+                    "key": "x-page-size",
+                    "value": "10",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{DOCKER USERS}}/channel/v1/users/10001/addresses",
+                  "host": [
+                    "{{DOCKER USERS}}"
+                  ],
+                  "path": [
+                    "channel",
+                    "v1",
+                    "users",
+                    "10001",
+                    "addresses"
+                  ],
+                  "query": [
+                    {
+                      "key": "status",
+                      "value": "INACTIVE",
+                      "disabled": true
+                    },
+                    {
+                      "key": "search",
+                      "value": "BUSSINESS",
+                      "disabled": true
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "createUserAddress",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMDAwMCIsImlhdCI6MTc3NzkyODk4NywiZXhwIjoxNzc4MDAwOTg3LCJzaWQiOiI3ZjJjMWE1NC00Y2YwLTRkOGMtOWIxOC0yYTZhNTdlN2Y3ZjMifQ.EBzeunks5eVhSbVRrHi2fwRAT0FBkTgcB77vEz7EQp8",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "x-device-ip",
+                    "value": "127.0.0.1",
+                    "type": "text"
+                  },
+                  {
+                    "key": "x-session",
+                    "value": "7f2c1a54-4cf0-4d8c-9b18-2a6a57e7f7f3",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"address\": \"10 Calle 1-23 Zona 10\",\r\n  \"typeAddress\": \"HOME\",\r\n  \"status\": \"ACTIVE\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{DOCKER USERS}}/channel/v1/users/10001/addresses",
+                  "host": [
+                    "{{DOCKER USERS}}"
+                  ],
+                  "path": [
+                    "channel",
+                    "v1",
+                    "users",
+                    "10001",
+                    "addresses"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "getUserAddressById",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMDAwMCIsImlhdCI6MTc3NzkyODk4NywiZXhwIjoxNzc4MDAwOTg3LCJzaWQiOiI3ZjJjMWE1NC00Y2YwLTRkOGMtOWIxOC0yYTZhNTdlN2Y3ZjMifQ.EBzeunks5eVhSbVRrHi2fwRAT0FBkTgcB77vEz7EQp8",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "x-device-ip",
+                    "value": "127.0.0.1",
+                    "type": "text"
+                  },
+                  {
+                    "key": "x-session",
+                    "value": "7f2c1a54-4cf0-4d8c-9b18-2a6a57e7f7f3",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{DOCKER USERS}}/channel/v1/users/10001/addresses/2",
+                  "host": [
+                    "{{DOCKER USERS}}"
+                  ],
+                  "path": [
+                    "channel",
+                    "v1",
+                    "users",
+                    "10001",
+                    "addresses",
+                    "2"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "updateUserAddressStatus",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMDAwMCIsImlhdCI6MTc3NzkyODk4NywiZXhwIjoxNzc4MDAwOTg3LCJzaWQiOiI3ZjJjMWE1NC00Y2YwLTRkOGMtOWIxOC0yYTZhNTdlN2Y3ZjMifQ.EBzeunks5eVhSbVRrHi2fwRAT0FBkTgcB77vEz7EQp8",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "x-device-ip",
+                    "value": "127.0.0.1",
+                    "type": "text"
+                  },
+                  {
+                    "key": "x-session",
+                    "value": "7f2c1a54-4cf0-4d8c-9b18-2a6a57e7f7f3",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"status\": \"INACTIVE\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{DOCKER USERS}}/channel/v1/users/10001/addresses/2",
+                  "host": [
+                    "{{DOCKER USERS}}"
+                  ],
+                  "path": [
+                    "channel",
+                    "v1",
+                    "users",
+                    "10001",
+                    "addresses",
+                    "2"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Accounts",
+      "item": [
+        {
+          "name": "AccountTypes",
+          "item": [
+            {
+              "name": "listAccountTypes",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMDAwMCIsImlhdCI6MTc3NzkyODk4NywiZXhwIjoxNzc4MDAwOTg3LCJzaWQiOiI3ZjJjMWE1NC00Y2YwLTRkOGMtOWIxOC0yYTZhNTdlN2Y3ZjMifQ.EBzeunks5eVhSbVRrHi2fwRAT0FBkTgcB77vEz7EQp8",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "x-device-ip",
+                    "value": "127.0.0.1",
+                    "type": "text"
+                  },
+                  {
+                    "key": "x-session",
+                    "value": "7f2c1a54-4cf0-4d8c-9b18-2a6a57e7f7f3",
+                    "type": "text"
+                  },
+                  {
+                    "key": "x-page",
+                    "value": "1",
+                    "type": "text"
+                  },
+                  {
+                    "key": "x-page-size",
+                    "value": "10",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{DOCKER ACCOUNTS}}/channel/v1/account-types",
+                  "host": [
+                    "{{DOCKER ACCOUNTS}}"
+                  ],
+                  "path": [
+                    "channel",
+                    "v1",
+                    "account-types"
+                  ],
+                  "query": [
+                    {
+                      "key": "status",
+                      "value": "INACTIVE",
+                      "disabled": true
+                    },
+                    {
+                      "key": "search",
+                      "value": "SEARCH",
+                      "disabled": true
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "createAccountType",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMDAwMCIsImlhdCI6MTc3NzkyODk4NywiZXhwIjoxNzc4MDAwOTg3LCJzaWQiOiI3ZjJjMWE1NC00Y2YwLTRkOGMtOWIxOC0yYTZhNTdlN2Y3ZjMifQ.EBzeunks5eVhSbVRrHi2fwRAT0FBkTgcB77vEz7EQp8",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "x-device-ip",
+                    "value": "127.0.0.1",
+                    "type": "text"
+                  },
+                  {
+                    "key": "x-session",
+                    "value": "7f2c1a54-4cf0-4d8c-9b18-2a6a57e7f7f3",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"accountType\": \"EXTRA\",\r\n  \"accountCode\": \"0001\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{DOCKER ACCOUNTS}}/channel/v1/account-types",
+                  "host": [
+                    "{{DOCKER ACCOUNTS}}"
+                  ],
+                  "path": [
+                    "channel",
+                    "v1",
+                    "account-types"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "getAccountTypeById",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMDAwMCIsImlhdCI6MTc3NzkyODk4NywiZXhwIjoxNzc4MDAwOTg3LCJzaWQiOiI3ZjJjMWE1NC00Y2YwLTRkOGMtOWIxOC0yYTZhNTdlN2Y3ZjMifQ.EBzeunks5eVhSbVRrHi2fwRAT0FBkTgcB77vEz7EQp8",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "x-device-ip",
+                    "value": "127.0.0.1",
+                    "type": "text"
+                  },
+                  {
+                    "key": "x-session",
+                    "value": "7f2c1a54-4cf0-4d8c-9b18-2a6a57e7f7f3",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{DOCKER ACCOUNTS}}/channel/v1/account-types/1",
+                  "host": [
+                    "{{DOCKER ACCOUNTS}}"
+                  ],
+                  "path": [
+                    "channel",
+                    "v1",
+                    "account-types",
+                    "1"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Accounts",
+          "item": [
+            {
+              "name": "listAccounts",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMDAwMCIsImlhdCI6MTc3NzkyODk4NywiZXhwIjoxNzc4MDAwOTg3LCJzaWQiOiI3ZjJjMWE1NC00Y2YwLTRkOGMtOWIxOC0yYTZhNTdlN2Y3ZjMifQ.EBzeunks5eVhSbVRrHi2fwRAT0FBkTgcB77vEz7EQp8",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "x-device-ip",
+                    "value": "127.0.0.1",
+                    "type": "text"
+                  },
+                  {
+                    "key": "x-session",
+                    "value": "7f2c1a54-4cf0-4d8c-9b18-2a6a57e7f7f3",
+                    "type": "text"
+                  },
+                  {
+                    "key": "x-page",
+                    "value": "1",
+                    "type": "text",
+                    "disabled": true
+                  },
+                  {
+                    "key": "x-page-size",
+                    "value": "1",
+                    "type": "text",
+                    "disabled": true
+                  }
+                ],
+                "url": {
+                  "raw": "{{DOCKER ACCOUNTS}}/channel/v1/accounts",
+                  "host": [
+                    "{{DOCKER ACCOUNTS}}"
+                  ],
+                  "path": [
+                    "channel",
+                    "v1",
+                    "accounts"
+                  ],
+                  "query": [
+                    {
+                      "key": "status",
+                      "value": "ACTIVE",
+                      "disabled": true
+                    },
+                    {
+                      "key": "userType",
+                      "value": "ADMIN",
+                      "disabled": true
+                    },
+                    {
+                      "key": "search",
+                      "value": "SEARCH",
+                      "disabled": true
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "createAccount",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMDAwMCIsImlhdCI6MTc3NzkyODk4NywiZXhwIjoxNzc4MDAwOTg3LCJzaWQiOiI3ZjJjMWE1NC00Y2YwLTRkOGMtOWIxOC0yYTZhNTdlN2Y3ZjMifQ.EBzeunks5eVhSbVRrHi2fwRAT0FBkTgcB77vEz7EQp8",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "x-device-ip",
+                    "value": "127.0.0.1",
+                    "type": "text"
+                  },
+                  {
+                    "key": "x-session",
+                    "value": "7f2c1a54-4cf0-4d8c-9b18-2a6a57e7f7f3",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"idAccountType\": 1,\r\n  \"idUser\": 10001\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{DOCKER ACCOUNTS}}/channel/v1/accounts",
+                  "host": [
+                    "{{DOCKER ACCOUNTS}}"
+                  ],
+                  "path": [
+                    "channel",
+                    "v1",
+                    "accounts"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "getAccountById",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMDAwMCIsImlhdCI6MTc3NzkyODk4NywiZXhwIjoxNzc4MDAwOTg3LCJzaWQiOiI3ZjJjMWE1NC00Y2YwLTRkOGMtOWIxOC0yYTZhNTdlN2Y3ZjMifQ.EBzeunks5eVhSbVRrHi2fwRAT0FBkTgcB77vEz7EQp8",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "x-device-ip",
+                    "value": "127.0.0.1",
+                    "type": "text"
+                  },
+                  {
+                    "key": "x-session",
+                    "value": "7f2c1a54-4cf0-4d8c-9b18-2a6a57e7f7f3",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{DOCKER ACCOUNTS}}/channel/v1/accounts/1",
+                  "host": [
+                    "{{DOCKER ACCOUNTS}}"
+                  ],
+                  "path": [
+                    "channel",
+                    "v1",
+                    "accounts",
+                    "1"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "updateAccountStatus",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMDAwMCIsImlhdCI6MTc3NzkyODk4NywiZXhwIjoxNzc4MDAwOTg3LCJzaWQiOiI3ZjJjMWE1NC00Y2YwLTRkOGMtOWIxOC0yYTZhNTdlN2Y3ZjMifQ.EBzeunks5eVhSbVRrHi2fwRAT0FBkTgcB77vEz7EQp8",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "x-device-ip",
+                    "value": "127.0.0.1",
+                    "type": "text"
+                  },
+                  {
+                    "key": "x-session",
+                    "value": "7f2c1a54-4cf0-4d8c-9b18-2a6a57e7f7f3",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"status\": \"INACTIVE\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{DOCKER ACCOUNTS}}/channel/v1/accounts/1",
+                  "host": [
+                    "{{DOCKER ACCOUNTS}}"
+                  ],
+                  "path": [
+                    "channel",
+                    "v1",
+                    "accounts",
+                    "1"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "getAccountByNumber",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMDAwMCIsImlhdCI6MTc3NzkyODk4NywiZXhwIjoxNzc4MDAwOTg3LCJzaWQiOiI3ZjJjMWE1NC00Y2YwLTRkOGMtOWIxOC0yYTZhNTdlN2Y3ZjMifQ.EBzeunks5eVhSbVRrHi2fwRAT0FBkTgcB77vEz7EQp8",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "x-device-ip",
+                    "value": "127.0.0.1",
+                    "type": "text"
+                  },
+                  {
+                    "key": "x-session",
+                    "value": "7f2c1a54-4cf0-4d8c-9b18-2a6a57e7f7f3",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{DOCKER ACCOUNTS}}/channel/v1/accounts/number/300000000001",
+                  "host": [
+                    "{{DOCKER ACCOUNTS}}"
+                  ],
+                  "path": [
+                    "channel",
+                    "v1",
+                    "accounts",
+                    "number",
+                    "300000000001"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Transactions",
+      "item": [
+        {
+          "name": "Transactions",
+          "item": [
+            {
+              "name": "listTransactions",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMDAwMCIsImlhdCI6MTc3NzkyODk4NywiZXhwIjoxNzc4MDAwOTg3LCJzaWQiOiI3ZjJjMWE1NC00Y2YwLTRkOGMtOWIxOC0yYTZhNTdlN2Y3ZjMifQ.EBzeunks5eVhSbVRrHi2fwRAT0FBkTgcB77vEz7EQp8",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "x-device-ip",
+                    "value": "127.0.0.1",
+                    "type": "text"
+                  },
+                  {
+                    "key": "x-session",
+                    "value": "7f2c1a54-4cf0-4d8c-9b18-2a6a57e7f7f3",
+                    "type": "text"
+                  },
+                  {
+                    "key": "x-page",
+                    "value": "1",
+                    "type": "text"
+                  },
+                  {
+                    "key": "x-page-size",
+                    "value": "10",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{DOCKER TRANSACTIONS}}/channel/v1/transactions",
+                  "host": [
+                    "{{DOCKER TRANSACTIONS}}"
+                  ],
+                  "path": [
+                    "channel",
+                    "v1",
+                    "transactions"
+                  ],
+                  "query": [
+                    {
+                      "key": "idAccount",
+                      "value": "10001",
+                      "disabled": true
+                    },
+                    {
+                      "key": "search",
+                      "value": "SEARCH",
+                      "disabled": true
+                    },
+                    {
+                      "key": "concept",
+                      "value": "DEBIT",
+                      "disabled": true
+                    },
+                    {
+                      "key": "status",
+                      "value": "ACTIVE",
+                      "disabled": true
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "createTransaction",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMDAwMCIsImlhdCI6MTc3NzkyODk4NywiZXhwIjoxNzc4MDAwOTg3LCJzaWQiOiI3ZjJjMWE1NC00Y2YwLTRkOGMtOWIxOC0yYTZhNTdlN2Y3ZjMifQ.EBzeunks5eVhSbVRrHi2fwRAT0FBkTgcB77vEz7EQp8",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "x-device-ip",
+                    "value": "127.0.0.1",
+                    "type": "text"
+                  },
+                  {
+                    "key": "x-session",
+                    "value": "7f2c1a54-4cf0-4d8c-9b18-2a6a57e7f7f3",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"idAccount\": 1,\r\n  \"amount\": 100,\r\n  \"description\": \"Salary payment\",\r\n  \"concept\": \"CREDIT\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{DOCKER TRANSACTIONS}}/channel/v1/transactions",
+                  "host": [
+                    "{{DOCKER TRANSACTIONS}}"
+                  ],
+                  "path": [
+                    "channel",
+                    "v1",
+                    "transactions"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "getTransactionById",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMDAwMCIsImlhdCI6MTc3NzkyODk4NywiZXhwIjoxNzc4MDAwOTg3LCJzaWQiOiI3ZjJjMWE1NC00Y2YwLTRkOGMtOWIxOC0yYTZhNTdlN2Y3ZjMifQ.EBzeunks5eVhSbVRrHi2fwRAT0FBkTgcB77vEz7EQp8",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "x-device-ip",
+                    "value": "127.0.0.1",
+                    "type": "text"
+                  },
+                  {
+                    "key": "x-session",
+                    "value": "7f2c1a54-4cf0-4d8c-9b18-2a6a57e7f7f3",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{DOCKER TRANSACTIONS}}/channel/v1/transactions/1",
+                  "host": [
+                    "{{DOCKER TRANSACTIONS}}"
+                  ],
+                  "path": [
+                    "channel",
+                    "v1",
+                    "transactions",
+                    "1"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "updateTransactionStatus",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMDAwMCIsImlhdCI6MTc3NzkyODk4NywiZXhwIjoxNzc4MDAwOTg3LCJzaWQiOiI3ZjJjMWE1NC00Y2YwLTRkOGMtOWIxOC0yYTZhNTdlN2Y3ZjMifQ.EBzeunks5eVhSbVRrHi2fwRAT0FBkTgcB77vEz7EQp8",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "x-device-ip",
+                    "value": "127.0.0.1",
+                    "type": "text"
+                  },
+                  {
+                    "key": "x-session",
+                    "value": "7f2c1a54-4cf0-4d8c-9b18-2a6a57e7f7f3",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"status\": \"INACTIVE\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{DOCKER TRANSACTIONS}}/channel/v1/transactions/1",
+                  "host": [
+                    "{{DOCKER TRANSACTIONS}}"
+                  ],
+                  "path": [
+                    "channel",
+                    "v1",
+                    "transactions",
+                    "1"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "generateAccountStatementReport",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMDAwMCIsImlhdCI6MTc3NzkyODk4NywiZXhwIjoxNzc4MDAwOTg3LCJzaWQiOiI3ZjJjMWE1NC00Y2YwLTRkOGMtOWIxOC0yYTZhNTdlN2Y3ZjMifQ.EBzeunks5eVhSbVRrHi2fwRAT0FBkTgcB77vEz7EQp8",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "x-device-ip",
+                    "value": "127.0.0.1",
+                    "type": "text"
+                  },
+                  {
+                    "key": "x-session",
+                    "value": "7f2c1a54-4cf0-4d8c-9b18-2a6a57e7f7f3",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{DOCKER TRANSACTIONS}}/channel/v1/transactions/reports/account-statement?idUser=10001&startDate=2026-05-01&endDate=2026-05-31",
+                  "host": [
+                    "{{DOCKER TRANSACTIONS}}"
+                  ],
+                  "path": [
+                    "channel",
+                    "v1",
+                    "transactions",
+                    "reports",
+                    "account-statement"
+                  ],
+                  "query": [
+                    {
+                      "key": "idUser",
+                      "value": "10001"
+                    },
+                    {
+                      "key": "startDate",
+                      "value": "2026-05-01"
+                    },
+                    {
+                      "key": "endDate",
+                      "value": "2026-05-31"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
