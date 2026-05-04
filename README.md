@@ -261,3 +261,8 @@ Puertos usados por defecto:
 - `8082`: Accounts UX
 - `8083`: Transactions UX
 - `4200`: Shell Center Page
+
+### Coleccion del postman
+Se encuentra una coleccion de postman para realizar pruebas a las apis (docs/Banco-Fortaleza-Financiera.postman_collection.json)
+
+la version de postman que se uso es: 12.9.0
