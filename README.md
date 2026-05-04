@@ -2,6 +2,10 @@
 
 Este repositorio incluye scripts `.sh` para construir las imagenes Docker y levantar el ambiente local completo.
 
+## Arquitectura
+
+![Arquitectura del ambiente](../arquitectura.png)
+
 ## Prerrequisitos
 
 - Docker Desktop instalado y en ejecucion.
@@ -19,23 +23,23 @@ Ejemplo de estructura esperada:
 
 ```text
 Banco-Fortaleza-Financiera/
-├── bff-cfg-scripts/
-├── bff-shell-center-page/
-├── bff-mfa-accounts/
-├── bff-mfa-transactions/
-├── bff-mfa-users/
-├── bff-sp-accounts/
-├── bff-sp-authentication/
-├── bff-sp-transactions/
-├── bff-sp-users/
-├── bff-ux-accounts/
-├── bff-ux-authentication/
-├── bff-ux-transactions/
-├── bff-ux-users/
-├── init.sh
-├── generate_images.sh
-├── deploy_database.sh
-└── deploy_services.sh
+|-- bff-cfg-scripts/
+|-- bff-shell-center-page/
+|-- bff-mfa-accounts/
+|-- bff-mfa-transactions/
+|-- bff-mfa-users/
+|-- bff-sp-accounts/
+|-- bff-sp-authentication/
+|-- bff-sp-transactions/
+|-- bff-sp-users/
+|-- bff-ux-accounts/
+|-- bff-ux-authentication/
+|-- bff-ux-transactions/
+|-- bff-ux-users/
+|-- init.sh
+|-- generate_images.sh
+|-- deploy_database.sh
+`-- deploy_services.sh
 ```
 
 ## Scripts disponibles
@@ -48,6 +52,15 @@ Banco-Fortaleza-Financiera/
 | `deploy_services.sh` | Levanta los servicios BFF Java, MFA y shell usando Docker Compose. |
 
 Los mismos scripts tambien existen en `bff-cfg-scripts/bash`, pero se recomienda usar los de la raiz del repositorio para evitar problemas de rutas.
+
+## Credenciales de prueba
+
+Para ingresar al ambiente local puedes usar el siguiente usuario y contrasena:
+
+| Campo | Valor |
+| --- | --- |
+| `idUser` | `10000` |
+| `password` | `Str0ngP@ssword` |
 
 ## Ejecucion completa del ambiente
 
