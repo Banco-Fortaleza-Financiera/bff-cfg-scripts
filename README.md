@@ -2,6 +2,32 @@
 
 Este repositorio incluye scripts `.sh` para construir las imagenes Docker y levantar el ambiente local completo.
 
+## Arquitectura
+
+![Arquitectura del ambiente](docs/arquitectura.png)
+
+## Capturas de la aplicacion
+
+### Login
+
+![Login](docs/00001.png)
+
+### Gestion de usuarios
+
+![Gestion de usuarios](docs/00002.png)
+
+### Gestion de cuentas
+
+![Gestion de cuentas](docs/00003.png)
+
+### Gestion de transacciones
+
+![Gestion de transacciones](docs/00004.png)
+
+### Reporte de estado de cuenta
+
+![Reporte de estado de cuenta](docs/00005.png)
+
 ## Prerrequisitos
 
 - Docker Desktop instalado y en ejecucion.
@@ -19,23 +45,23 @@ Ejemplo de estructura esperada:
 
 ```text
 Banco-Fortaleza-Financiera/
-├── bff-cfg-scripts/
-├── bff-shell-center-page/
-├── bff-mfa-accounts/
-├── bff-mfa-transactions/
-├── bff-mfa-users/
-├── bff-sp-accounts/
-├── bff-sp-authentication/
-├── bff-sp-transactions/
-├── bff-sp-users/
-├── bff-ux-accounts/
-├── bff-ux-authentication/
-├── bff-ux-transactions/
-├── bff-ux-users/
-├── init.sh
-├── generate_images.sh
-├── deploy_database.sh
-└── deploy_services.sh
+|-- bff-cfg-scripts/
+|-- bff-shell-center-page/
+|-- bff-mfa-accounts/
+|-- bff-mfa-transactions/
+|-- bff-mfa-users/
+|-- bff-sp-accounts/
+|-- bff-sp-authentication/
+|-- bff-sp-transactions/
+|-- bff-sp-users/
+|-- bff-ux-accounts/
+|-- bff-ux-authentication/
+|-- bff-ux-transactions/
+|-- bff-ux-users/
+|-- init.sh
+|-- generate_images.sh
+|-- deploy_database.sh
+`-- deploy_services.sh
 ```
 
 ## Scripts disponibles
@@ -48,6 +74,15 @@ Banco-Fortaleza-Financiera/
 | `deploy_services.sh` | Levanta los servicios BFF Java, MFA y shell usando Docker Compose. |
 
 Los mismos scripts tambien existen en `bff-cfg-scripts/bash`, pero se recomienda usar los de la raiz del repositorio para evitar problemas de rutas.
+
+## Credenciales de prueba
+
+Para ingresar al ambiente local puedes usar el siguiente usuario y contrasena:
+
+| Campo | Valor |
+| --- | --- |
+| `idUser` | `10000` |
+| `password` | `Str0ngP@ssword` |
 
 ## Ejecucion completa del ambiente
 
@@ -120,6 +155,12 @@ Este script levanta:
 - Accounts UX: `http://localhost:8082`
 - Transactions UX: `http://localhost:8083`
 - Shell Center Page: `http://localhost:4200`
+
+Para ver la pagina principal del ambiente debes ingresar en el navegador a:
+
+```text
+http://localhost:4200
+```
 
 ## Validar contenedores
 
@@ -220,3 +261,8 @@ Puertos usados por defecto:
 - `8082`: Accounts UX
 - `8083`: Transactions UX
 - `4200`: Shell Center Page
+
+### Coleccion del postman
+Se encuentra una coleccion de postman para realizar pruebas a las apis (docs/Banco-Fortaleza-Financiera.postman_collection.json)
+
+la version de postman que se uso es: 12.9.0
