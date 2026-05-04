@@ -156,6 +156,12 @@ Este script levanta:
 - Transactions UX: `http://localhost:8083`
 - Shell Center Page: `http://localhost:4200`
 
+Para ver la pagina principal del ambiente debes ingresar en el navegador a:
+
+```text
+http://localhost:4200
+```
+
 ## Validar contenedores
 
 Para revisar que los contenedores esten arriba:
