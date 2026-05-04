@@ -1,0 +1,39 @@
+services:
+  sp:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: bff-sp-users:local
+    container_name: bff-sp-users
+    env_file:
+      - .env.sp.docker
+    expose:
+      - "9001"
+    networks:
+      - bff-users-network
+    restart: unless-stopped
+
+  ux:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: bff-ux-users:local
+    container_name: bff-ux-users
+    env_file:
+      - .env.ux.docker
+    ports:
+      - "8081:8080"
+    networks:
+      - bff-users-network
+      - bff-authentication-network
+    depends_on:
+      - sp
+    restart: unless-stopped
+
+networks:
+  bff-users-network:
+    name: bff-users-network
+    driver: bridge
+  bff-authentication-network:
+    name: bff-authentication-network
+    external: true

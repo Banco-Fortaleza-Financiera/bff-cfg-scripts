@@ -1,0 +1,32 @@
+services:
+  redis:
+    image: ${REDIS_IMAGE}
+    container_name: ${CONTAINER_NAME}
+    ports:
+      - "${REDIS_PORT}:6379"
+    restart: unless-stopped
+    volumes:
+      - redis_data:/data
+    command: >
+      redis-server
+      --appendonly yes
+      --requirepass ${REDIS_PASSWORD}
+  
+  redis-commander:
+    container_name: ${REDIS_COMMANDER_CONTAINER_NAME}
+    hostname: redis-commander
+    image: ${REDIS_COMMANDER_IMAGE}
+    restart: always
+    env_file:
+      - .env
+    environment:
+      - REDIS_HOST=redis
+      - REDIS_PORT=${REDIS_PORT}
+      - REDIS_DB=0
+    ports:
+      - "${REDIS_COMMANDER_PORT}:8081"
+    user: redis
+
+volumes:
+  redis_data:
+    name: ${VOLUME_NAME}

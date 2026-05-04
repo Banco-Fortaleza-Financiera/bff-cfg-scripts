@@ -1,0 +1,39 @@
+services:
+  sp:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: bff-sp-transactions:local
+    container_name: bff-sp-transactions
+    env_file:
+      - .env.sp.docker
+    expose:
+      - "9003"
+    networks:
+      - bff-transactions-network
+    restart: unless-stopped
+
+  ux:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: bff-ux-transactions:local
+    container_name: bff-ux-transactions
+    env_file:
+      - .env.ux.docker
+    ports:
+      - "8083:8080"
+    networks:
+      - bff-transactions-network
+      - bff-authentication-network
+    depends_on:
+      - sp
+    restart: unless-stopped
+
+networks:
+  bff-transactions-network:
+    name: bff-transactions-network
+    driver: bridge
+  bff-authentication-network:
+    name: bff-authentication-network
+    external: true

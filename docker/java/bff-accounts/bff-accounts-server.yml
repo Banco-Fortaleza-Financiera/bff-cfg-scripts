@@ -1,0 +1,39 @@
+services:
+  sp:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: bff-sp-accounts:local
+    container_name: bff-sp-accounts
+    env_file:
+      - .env.sp.docker
+    expose:
+      - "9002"
+    networks:
+      - bff-accounts-network
+    restart: unless-stopped
+
+  ux:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: bff-ux-accounts:local
+    container_name: bff-ux-accounts
+    env_file:
+      - .env.ux.docker
+    ports:
+      - "8082:8080"
+    networks:
+      - bff-accounts-network
+      - bff-authentication-network
+    depends_on:
+      - sp
+    restart: unless-stopped
+
+networks:
+  bff-accounts-network:
+    name: bff-accounts-network
+    driver: bridge
+  bff-authentication-network:
+    name: bff-authentication-network
+    external: true

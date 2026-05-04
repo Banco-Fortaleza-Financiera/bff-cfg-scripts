@@ -1,0 +1,35 @@
+services:
+  sp:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: bff-sp-authentication:local
+    container_name: bff-sp-authentication
+    env_file:
+      - .env.sp.docker
+    expose:
+      - "8888"
+    networks:
+      - bff-authentication-network
+    restart: unless-stopped
+
+  ux:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: bff-ux-authentication:local
+    container_name: bff-ux-authentication
+    env_file:
+      - .env.ux.docker
+    ports:
+      - "8080:8080"
+    networks:
+      - bff-authentication-network
+    depends_on:
+      - sp
+    restart: unless-stopped
+
+networks:
+  bff-authentication-network:
+    name: bff-authentication-network
+    driver: bridge
